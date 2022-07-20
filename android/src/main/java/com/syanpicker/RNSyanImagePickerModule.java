@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Base64;
 
@@ -406,6 +407,9 @@ public class RNSyanImagePickerModule extends ReactContextBaseJavaModule {
 
         if (media.isCompressed() || media.isCut()) {
             path = media.getCompressPath();
+        } else {
+            Uri uri = Uri.parse(path);
+            path = ReaderUtils.getRealPathFromUri(this.reactContext, uri);
         }
 
         if (media.isCut()) {
@@ -414,8 +418,8 @@ public class RNSyanImagePickerModule extends ReactContextBaseJavaModule {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
-        imageMap.putDouble("width", options.outWidth);
-        imageMap.putDouble("height", options.outHeight);
+        imageMap.putDouble("width", options.outWidth > options.outHeight?options.outHeight:options.outWidth);
+        imageMap.putDouble("height", options.outWidth > options.outHeight?options.outWidth:options.outHeight);
         imageMap.putString("type", "image");
         imageMap.putString("uri", "file://" + path);
         imageMap.putString("original_uri", "file://" + media.getPath());

@@ -394,14 +394,20 @@ public class RNSyanImagePickerModule extends ReactContextBaseJavaModule {
             WritableArray imageList = new WritableNativeArray();
             boolean enableBase64 = cameraOptions.getBoolean("enableBase64");
 
-            for (LocalMedia media : tmpSelectList) {
-                imageList.pushMap(getImageResult(media, enableBase64));
-            }
-            invokeSuccessWithResult(imageList);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Gson gson = new Gson();
+                    for (LocalMedia media : tmpSelectList) {
+                        imageList.pushMap(getImageResult(media, enableBase64,gson.fromJson(cameraOptions.getString("config"),WaterMarkConfig.class)));
+                    }
+                    invokeSuccessWithResult(imageList);
+                }
+            }).start();
         }
     }
 
-    private WritableMap getImageResult(LocalMedia media, Boolean enableBase64) {
+    private WritableMap getImageResult(LocalMedia media, Boolean enableBase64,WaterMarkConfig config) {
         WritableMap imageMap = new WritableNativeMap();
         String path = media.getPath();
 

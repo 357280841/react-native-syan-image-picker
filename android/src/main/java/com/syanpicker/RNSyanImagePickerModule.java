@@ -427,8 +427,10 @@ public class RNSyanImagePickerModule extends ReactContextBaseJavaModule {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
-        imageMap.putDouble("width", options.outWidth > options.outHeight?options.outHeight:options.outWidth);
-        imageMap.putDouble("height", options.outWidth > options.outHeight?options.outWidth:options.outHeight);
+//        imageMap.putDouble("width", options.outWidth > options.outHeight?options.outHeight:options.outWidth);
+//        imageMap.putDouble("height", options.outWidth > options.outHeight?options.outWidth:options.outHeight);
+        imageMap.putDouble("width", options.outWidth);
+        imageMap.putDouble("height", options.outHeight);
         imageMap.putString("type", "image");
         imageMap.putString("uri", "file://" + picPath);
         imageMap.putString("original_uri", "file://" + media.getPath());

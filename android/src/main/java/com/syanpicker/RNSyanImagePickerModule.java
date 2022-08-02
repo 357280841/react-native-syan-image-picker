@@ -414,10 +414,11 @@ public class RNSyanImagePickerModule extends ReactContextBaseJavaModule {
 
         if (media.isCompressed() || media.isCut()) {
             path = media.getCompressPath();
-        } else {
-            Uri uri = Uri.parse(path);
-            path = ReaderUtils.getRealPathFromUri(this.reactContext, uri);
         }
+//        else {
+//            Uri uri = Uri.parse(path);
+//            path = ReaderUtils.getRealPathFromUri(this.reactContext, uri);
+//        }
 
         if (media.isCut()) {
             path = media.getCutPath();

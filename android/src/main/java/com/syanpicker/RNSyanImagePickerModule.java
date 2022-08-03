@@ -424,6 +424,11 @@ public class RNSyanImagePickerModule extends ReactContextBaseJavaModule {
             path = media.getCutPath();
         }
 
+        if(path.startsWith("content:")){
+            Uri uri = Uri.parse(path);
+            path = ReaderUtils.getRealPathFromUri(this.reactContext, uri);
+        }
+
         String picPath =  WaterMarkerUtils.processPic(path,config,getCurrentActivity());
 
         BitmapFactory.Options options = new BitmapFactory.Options();

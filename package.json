@@ -1,6 +1,6 @@
 {
   "name": "saaf-rn-image-picker",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "React-Native 多图片选择 支持裁剪 压缩",
   "main": "src/index.js",
   "types": "src/index.d.ts",

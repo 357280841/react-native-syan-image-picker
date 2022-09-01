@@ -207,7 +207,7 @@ public class GlideEngine implements ImageEngine {
     public void loadGridImage(@NonNull Context context, @NonNull String url, @NonNull ImageView imageView) {
         Glide.with(context)
                 .load(url)
-                .override(100, 100)
+                .override(160, 160)
                 .centerCrop()
                 .apply(new RequestOptions().placeholder(R.drawable.picture_image_placeholder))
                 .into(imageView);

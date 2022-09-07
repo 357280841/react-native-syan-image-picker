@@ -23,6 +23,15 @@
 		23F50D741F3C041A004B3E61 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F50D661F3C041A004B3E61 /* UIView+Layout.m */; };
 		B3E7B58A1CC2AC0600A0062D /* RNSyanImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNSyanImagePicker.m */; };
 		EC236E871F978C3B00D528A5 /* NSDictionary+SYSafeConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = EC236E861F978C3B00D528A5 /* NSDictionary+SYSafeConvert.m */; };
+		FFD8824228C9041B00D6DB61 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD8822C28C9041B00D6DB61 /* UIImage+Resize.m */; };
+		FFD8824328C9041B00D6DB61 /* SIECordovaModels.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD8822F28C9041B00D6DB61 /* SIECordovaModels.m */; };
+		FFD8824428C9041B00D6DB61 /* SIEFontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD8823028C9041B00D6DB61 /* SIEFontManager.m */; };
+		FFD8824528C9041B00D6DB61 /* NSString+Regulars.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD8823428C9041B00D6DB61 /* NSString+Regulars.m */; };
+		FFD8824628C9041B00D6DB61 /* NSString+IGTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD8823528C9041B00D6DB61 /* NSString+IGTool.m */; };
+		FFD8824728C9041B00D6DB61 /* IGSectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD8823928C9041B00D6DB61 /* IGSectionData.m */; };
+		FFD8824828C9041B00D6DB61 /* IGCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD8823A28C9041B00D6DB61 /* IGCellData.m */; };
+		FFD8824928C9041C00D6DB61 /* IGJSONKIt.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD8823F28C9041B00D6DB61 /* IGJSONKIt.m */; };
+		FFD8824A28C9041C00D6DB61 /* SIEJSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD8824028C9041B00D6DB61 /* SIEJSONModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,6 +81,24 @@
 		B3E7B5891CC2AC0600A0062D /* RNSyanImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSyanImagePicker.m; sourceTree = "<group>"; };
 		EC236E851F978C3B00D528A5 /* NSDictionary+SYSafeConvert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SYSafeConvert.h"; sourceTree = "<group>"; };
 		EC236E861F978C3B00D528A5 /* NSDictionary+SYSafeConvert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SYSafeConvert.m"; sourceTree = "<group>"; };
+		FFD8822B28C9041B00D6DB61 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		FFD8822C28C9041B00D6DB61 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		FFD8822D28C9041B00D6DB61 /* SIECordovaModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIECordovaModels.h; sourceTree = "<group>"; };
+		FFD8822E28C9041B00D6DB61 /* SIEJSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIEJSONModel.h; sourceTree = "<group>"; };
+		FFD8822F28C9041B00D6DB61 /* SIECordovaModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIECordovaModels.m; sourceTree = "<group>"; };
+		FFD8823028C9041B00D6DB61 /* SIEFontManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIEFontManager.m; sourceTree = "<group>"; };
+		FFD8823328C9041B00D6DB61 /* NSString+IGTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+IGTool.h"; sourceTree = "<group>"; };
+		FFD8823428C9041B00D6DB61 /* NSString+Regulars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regulars.m"; sourceTree = "<group>"; };
+		FFD8823528C9041B00D6DB61 /* NSString+IGTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+IGTool.m"; sourceTree = "<group>"; };
+		FFD8823628C9041B00D6DB61 /* NSString+Regulars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regulars.h"; sourceTree = "<group>"; };
+		FFD8823928C9041B00D6DB61 /* IGSectionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGSectionData.m; sourceTree = "<group>"; };
+		FFD8823A28C9041B00D6DB61 /* IGCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGCellData.m; sourceTree = "<group>"; };
+		FFD8823B28C9041B00D6DB61 /* IGCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGCellData.h; sourceTree = "<group>"; };
+		FFD8823C28C9041B00D6DB61 /* IGSectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGSectionData.h; sourceTree = "<group>"; };
+		FFD8823E28C9041B00D6DB61 /* IGJSONKIt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGJSONKIt.h; sourceTree = "<group>"; };
+		FFD8823F28C9041B00D6DB61 /* IGJSONKIt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGJSONKIt.m; sourceTree = "<group>"; };
+		FFD8824028C9041B00D6DB61 /* SIEJSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIEJSONModel.m; sourceTree = "<group>"; };
+		FFD8824128C9041B00D6DB61 /* SIEFontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIEFontManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,8 +164,74 @@
 				23F50D491F3C0419004B3E61 /* TZImagePickerController */,
 				B3E7B5881CC2AC0600A0062D /* RNSyanImagePicker.h */,
 				B3E7B5891CC2AC0600A0062D /* RNSyanImagePicker.m */,
+				FFD8823128C9041B00D6DB61 /* IGTool */,
+				FFD8822D28C9041B00D6DB61 /* SIECordovaModels.h */,
+				FFD8822F28C9041B00D6DB61 /* SIECordovaModels.m */,
+				FFD8824128C9041B00D6DB61 /* SIEFontManager.h */,
+				FFD8823028C9041B00D6DB61 /* SIEFontManager.m */,
+				FFD8822A28C9041B00D6DB61 /* SIEImages */,
+				FFD8822E28C9041B00D6DB61 /* SIEJSONModel.h */,
+				FFD8824028C9041B00D6DB61 /* SIEJSONModel.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		FFD8822A28C9041B00D6DB61 /* SIEImages */ = {
+			isa = PBXGroup;
+			children = (
+				FFD8822B28C9041B00D6DB61 /* UIImage+Resize.h */,
+				FFD8822C28C9041B00D6DB61 /* UIImage+Resize.m */,
+			);
+			path = SIEImages;
+			sourceTree = "<group>";
+		};
+		FFD8823128C9041B00D6DB61 /* IGTool */ = {
+			isa = PBXGroup;
+			children = (
+				FFD8823228C9041B00D6DB61 /* NSString+IGTool */,
+				FFD8823728C9041B00D6DB61 /* FMDB+IGTool */,
+				FFD8823828C9041B00D6DB61 /* IGCellData */,
+				FFD8823D28C9041B00D6DB61 /* IGJSONKit */,
+			);
+			path = IGTool;
+			sourceTree = "<group>";
+		};
+		FFD8823228C9041B00D6DB61 /* NSString+IGTool */ = {
+			isa = PBXGroup;
+			children = (
+				FFD8823328C9041B00D6DB61 /* NSString+IGTool.h */,
+				FFD8823428C9041B00D6DB61 /* NSString+Regulars.m */,
+				FFD8823528C9041B00D6DB61 /* NSString+IGTool.m */,
+				FFD8823628C9041B00D6DB61 /* NSString+Regulars.h */,
+			);
+			path = "NSString+IGTool";
+			sourceTree = "<group>";
+		};
+		FFD8823728C9041B00D6DB61 /* FMDB+IGTool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "FMDB+IGTool";
+			sourceTree = "<group>";
+		};
+		FFD8823828C9041B00D6DB61 /* IGCellData */ = {
+			isa = PBXGroup;
+			children = (
+				FFD8823928C9041B00D6DB61 /* IGSectionData.m */,
+				FFD8823A28C9041B00D6DB61 /* IGCellData.m */,
+				FFD8823B28C9041B00D6DB61 /* IGCellData.h */,
+				FFD8823C28C9041B00D6DB61 /* IGSectionData.h */,
+			);
+			path = IGCellData;
+			sourceTree = "<group>";
+		};
+		FFD8823D28C9041B00D6DB61 /* IGJSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				FFD8823E28C9041B00D6DB61 /* IGJSONKIt.h */,
+				FFD8823F28C9041B00D6DB61 /* IGJSONKIt.m */,
+			);
+			path = IGJSONKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +273,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
@@ -198,13 +292,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				23F50D6F1F3C041A004B3E61 /* TZPhotoPickerController.m in Sources */,
+				FFD8824728C9041B00D6DB61 /* IGSectionData.m in Sources */,
 				23F50D691F3C041A004B3E61 /* TZAssetModel.m in Sources */,
+				FFD8824528C9041B00D6DB61 /* NSString+Regulars.m in Sources */,
 				23F50D701F3C041A004B3E61 /* TZPhotoPreviewCell.m in Sources */,
 				23F50D6C1F3C041A004B3E61 /* TZImageManager.m in Sources */,
+				FFD8824328C9041B00D6DB61 /* SIECordovaModels.m in Sources */,
 				23F50D671F3C041A004B3E61 /* NSBundle+TZImagePicker.m in Sources */,
+				FFD8824928C9041C00D6DB61 /* IGJSONKIt.m in Sources */,
 				23F50D6A1F3C041A004B3E61 /* TZGifPhotoPreviewController.m in Sources */,
 				EC236E871F978C3B00D528A5 /* NSDictionary+SYSafeConvert.m in Sources */,
+				FFD8824A28C9041C00D6DB61 /* SIEJSONModel.m in Sources */,
 				23F50D6B1F3C041A004B3E61 /* TZImageCropManager.m in Sources */,
+				FFD8824628C9041B00D6DB61 /* NSString+IGTool.m in Sources */,
 				23F50D711F3C041A004B3E61 /* TZPhotoPreviewController.m in Sources */,
 				23F50D741F3C041A004B3E61 /* UIView+Layout.m in Sources */,
 				23F50D731F3C041A004B3E61 /* TZVideoPlayerController.m in Sources */,
@@ -212,7 +312,10 @@
 				23F50D6E1F3C041A004B3E61 /* TZLocationManager.m in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RNSyanImagePicker.m in Sources */,
 				23F50D681F3C041A004B3E61 /* TZAssetCell.m in Sources */,
+				FFD8824228C9041B00D6DB61 /* UIImage+Resize.m in Sources */,
+				FFD8824428C9041B00D6DB61 /* SIEFontManager.m in Sources */,
 				23F50D6D1F3C041A004B3E61 /* TZImagePickerController.m in Sources */,
+				FFD8824828C9041B00D6DB61 /* IGCellData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,6 +1,11 @@
 
 #import "RNSyanImagePicker.h"
 
+#import "SIECordovaModels.h"
+#import "MJExtension.h"
+#import "SDWebImageDownloader.h"
+#import "UIImage+Resize.h"
+
 #import "TZImageManager.h"
 #import "NSDictionary+SYSafeConvert.h"
 #import "TZImageCropManager.h"
@@ -30,11 +35,15 @@
 @end
 
 @implementation RNSyanImagePicker
+{
+    int isCompression;
+}
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         _selectedAssets = [NSMutableArray array];
+        isCompression = 1200;
     }
     return self;
 }
@@ -255,22 +264,113 @@ RCT_EXPORT_METHOD(openVideoPicker:(NSDictionary *)options callback:(RCTResponseS
 
     __weak TZImagePickerController *weakPicker = imagePickerVc;
     [imagePickerVc setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> *photos,NSArray *assets,BOOL isSelectOriginalPhoto,NSArray<NSDictionary *> *infos) {
-        if (isRecordSelected) {
-            self.selectedAssets = [NSMutableArray arrayWithArray:assets];
+        
+        NSMutableArray *newPhotos;
+        NSArray *texts = self.cameraOptions[@"configIOS"][@"titles"];
+        NSArray *images = self.cameraOptions[@"configIOS"][@"images"];
+        NSArray *titles, *vphotos;
+        if (texts && [texts isKindOfClass:[NSArray class]]) {
+            titles = [SIECordovaTextModel mj_objectArrayWithKeyValuesArray:texts];
         }
-        [weakPicker showProgressHUD];
-        if (imageCount == 1 && isCrop) {
-            [self invokeSuccessWithResult:@[[self handleCropImage:photos[0] phAsset:assets[0] quality:quality]]];
-        } else {
-            [infos enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [self handleAssets:assets photos:photos quality:quality isSelectOriginalPhoto:isSelectOriginalPhoto completion:^(NSArray *selecteds) {
-                    [self invokeSuccessWithResult:selecteds];
-                } fail:^(NSError *error) {
+        if (images && [images isKindOfClass:[NSArray class]]) {
+            vphotos = [SIECordovaImageModel mj_objectArrayWithKeyValuesArray:images];
+        }
+        if (self.cameraOptions[@"configIOS"]) {
+            //所有图片
+            if (isCompression == 0) {
+                newPhotos = [[NSMutableArray alloc]initWithArray:photos];
+            }else{
+                newPhotos = [NSMutableArray new];
+                for (__strong UIImage *image in photos) {
+                    if (image.size.width >isCompression || image.size.height>isCompression) {
+                        if (image.size.width>image.size.height) {
+                            
+                            int x = isCompression*image.size.height/image.size.width;
+                            //压缩设置
+                            UIImage* tmpImages = [image resizedImageToSize:CGSizeMake(isCompression, x)];
+                            [newPhotos addObject:tmpImages];
+                            
+                        }else{
+                            int x = isCompression*image.size.width/image.size.height;
+                            //压缩设置
+                            UIImage* tmpImages = [image resizedImageToSize:CGSizeMake(x, isCompression)];
+                            [newPhotos addObject:tmpImages];
+                        }
+                    }else{
+                        [newPhotos addObject:image];
+                    }
+                }
+            }
+            
+            //添加水印
+            __block NSUInteger photoCount = newPhotos.count;
+            NSMutableArray *watImages = [NSMutableArray arrayWithCapacity:photoCount];
 
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [MBProgressHUD showMessage:@"" toView:self.viewController.view];
+//            });
+//            [weakPicker showProgressHUD];
+            // 下载水印
+            [self downloadAllWaterImage:vphotos complete:^(NSArray<SIECordovaImageModel *> *images) {
+                for (__strong UIImage *image in newPhotos) {
+                    
+                    //绘制文字
+                    [self drawImage:&image texts:titles];
+                    
+                    //绘制水印
+                    CGSize imgSize = image.size;
+                    UIGraphicsBeginImageContext(imgSize);
+                    CGRect rect = CGRectMake(0, 0, imgSize.width, imgSize.height);
+                    [image drawInRect:rect];
+                    
+                    CGContextRef ctx = UIGraphicsGetCurrentContext();
+                    for (SIECordovaImageModel *water in images) {
+                        CGContextSetAlpha(ctx, water.alpha);
+                        UIImage *wImage = water.image;
+                        CGRect imgRect = [water rectInRect:rect image:wImage];
+                        [wImage drawInRect:imgRect];
+                    }
+                    
+                    UIImage * newImage = UIGraphicsGetImageFromCurrentImageContext();
+                    UIGraphicsEndImageContext();
+                    
+                    [watImages addObject:newImage];
+                }
+                
+                //保存到相册
+//                if (saveToAlbum) {
+//                    [self saveToAlbum:watImages];
+//                }
+                //本地上写入图片
+//                NSMutableArray* newPhotosPath = [[NSMutableArray alloc]initWithArray:[self saveSystem:watImages]];
+                
+                [infos enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [self handleAssets:assets photos:watImages quality:quality isSelectOriginalPhoto:isSelectOriginalPhoto completion:^(NSArray *selecteds) {
+                        [self invokeSuccessWithResult:selecteds];
+                    } fail:^(NSError *error) {
+
+                    }];
                 }];
             }];
+        } else {
+            if (isRecordSelected) {
+                self.selectedAssets = [NSMutableArray arrayWithArray:assets];
+            }
+            [weakPicker showProgressHUD];
+            if (imageCount == 1 && isCrop) {
+                [self invokeSuccessWithResult:@[[self handleCropImage:photos[0] phAsset:assets[0] quality:quality]]];
+            } else {
+                [infos enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [self handleAssets:assets photos:photos quality:quality isSelectOriginalPhoto:isSelectOriginalPhoto completion:^(NSArray *selecteds) {
+                        [self invokeSuccessWithResult:selecteds];
+                    } fail:^(NSError *error) {
+
+                    }];
+                }];
+            }
+            [weakPicker hideProgressHUD];
         }
-        [weakPicker hideProgressHUD];
+        
     }];
 
     __weak TZImagePickerController *weakPickerVc = imagePickerVc;
@@ -593,6 +693,108 @@ RCT_EXPORT_METHOD(openVideoPicker:(NSDictionary *)options callback:(RCTResponseS
 
 - (dispatch_queue_t)methodQueue {
     return dispatch_get_main_queue();
+}
+
+
+
+
+//写入本地
+-(NSArray*)saveSystem:(NSArray<UIImage*>*)photos {
+    
+    NSMutableArray *newPhotosPath = [NSMutableArray new];
+    
+    for (int i = 0; i < photos.count; i++) {
+        
+        UIImage *image = [photos objectAtIndex:i];
+        
+//        //写入document目录
+//        NSData *imageData = UIImageJPEGRepresentation(image, 0);
+//        NSString *imageName=[NSString stringWithFormat:@"%@_%d.jpg",[SIEFunctionForPlugin getTime],i];
+//        NSString *imageSaveToFile = [[SIEFunctionForPlugin getDocuments] stringByAppendingPathComponent:imageName];
+//        
+//        //写入进行操作
+//        BOOL saveFile =[imageData writeToFile:imageSaveToFile atomically:YES];
+//        
+//        if (saveFile) {
+//            [newPhotosPath addObject:imageSaveToFile];
+//        }
+    } //写入本地完毕
+    
+    return newPhotosPath;
+}
+
+// 水印下载
+- (void)downloadAllWaterImage:(NSArray<SIECordovaImageModel *>*)models complete:(void(^)(NSArray<SIECordovaImageModel *> *images))complete{
+    NSInteger watCount = models.count;
+    NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:watCount];
+    
+    for (NSInteger idx=0; idx<watCount; idx++) {
+        SIECordovaImageModel *water = models[idx];
+        UIImage *placeImg = [UIImage imageNamed:[water placeholdImage]];
+        
+        if (water.url.length==0) {
+            water.image = placeImg;
+            [tmp addObject:water];
+            if (tmp.count==watCount) {
+                if (complete) {
+                    complete(tmp);
+                }
+            }
+        }
+        else {
+            //下载
+            SDWebImageDownloader *sd = [SDWebImageDownloader sharedDownloader];
+            [sd downloadImageWithURL:[NSURL URLWithString:water.url]
+                             options:0
+                            progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                // progression tracking code
+                            }
+                           completed:^(UIImage *img, NSData *data, NSError *error, BOOL finished) {
+                               if (error) {
+                                   water.errMsg = error.localizedDescription;
+                               }
+                               if (finished) {
+                                   img = img? img : [UIImage imageNamed:[water placeholdImage]];
+                                   if (!img) {
+//                                       water.errMsg = water.errMsg? water.errMsg : SIELocalString(@"水印图片下载失败");
+                                       //下载失败 直接返回错误
+//                                       [self retrunError:water.errMsg command:_command];
+                                       return;
+                                   }
+                                   water.image = img;
+                                   [tmp addObject:water];
+                                   if (tmp.count==watCount) {
+                                       if (complete) {
+                                           complete(tmp);
+                                       }
+                                   }
+                               }
+                           }];
+        }
+        
+    }
+}
+
+// 文字水印处理
+- (void)drawImage:(UIImage **)image texts:(NSArray<SIECordovaTextModel *> *)texts {
+    CGSize imgSize = (*image).size;
+    UIGraphicsBeginImageContext(imgSize);
+    [[UIColor whiteColor] set];
+    int w = imgSize.width;
+    int h = imgSize.height;
+    
+    CGRect rect = CGRectMake(0, 0, w, h);
+    [*image drawInRect:rect];
+    
+    for (SIECordovaTextModel *text in texts) {
+        CGContextSetAlpha(UIGraphicsGetCurrentContext(), text.alpha);
+        CGRect textRect = [text rectInRect:rect];
+        [text.text drawInRect:textRect withAttributes:[text textAttribute]];
+    }
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    *image = newImage;
+    UIGraphicsEndImageContext();
 }
 
 @end
